@@ -18,7 +18,8 @@ namespace Custom_Calculator
     {   
         private string connStr = ConfigurationManager.ConnectionStrings["CustomCalculatorString"].ConnectionString;
 
-        //public IRepository repo = new Repository();
+        //public IRepository repo = new Repository(); // ovde si iskljucio repo iz upotrebe, koji je jedina referenca koja ti je potrebna 
+        //obrati paznju da sad imas dva repozitorija, instanciraces onaj koji zelis da koristis, implenetiraj oba i onda menjaj ovde da vidis kako te tok vodi u razlicite implementacije 
 
         //Fields
         Double result = 0;
@@ -99,6 +100,7 @@ namespace Custom_Calculator
             //RtBoxDisplayHistory.SaveFile(path);
             if (RtBoxDisplayHistory.Text != string.Empty)
             {
+                // ovaj kod ne pripada ovde
                 string filePath = 
                     @"C:\Users\brank\Desktop\PROJECTS\APLIKACIJE\CALCULATORS\Calculator WF\Custom Calculator\history.txt";
                 File.AppendAllLines(filePath, RtBoxDisplayHistory.Lines);
@@ -113,7 +115,9 @@ namespace Custom_Calculator
 
                 cmdInsert.ExecuteNonQuery();
                 conn.Close();
+                //repo.SaveHistory(); //treba da koristis repozitori, forma ne sme da zna nista o nacinu cuvanja podataka
             }
+            // pa sve do ovde 
 
             if (RtBoxDisplayHistory.Text == string.Empty)
                 RtBoxDisplayHistory.Text = "There is no history";

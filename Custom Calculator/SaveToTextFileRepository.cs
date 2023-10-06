@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Custom_Calculator
 {
-    public class Repository : IRepository
+    public class SaveToTextFileRepository : IRepository
     {
         public string directory = @"C:\Users\brank\Desktop\PROJECTS\APLIKACIJE\CALCULATORS\Calculator WF\Custom Calculator";
         public string displayHistory = "history.txt";
@@ -19,7 +19,8 @@ namespace Custom_Calculator
         //    throw new NotImplementedException();
         //}
 
-        public void SaveHistory(/*string text*/)
+        public void SaveHistory(/*string text*/) // ova metoda je beskorisna trenutno, popravi je
+            // pokusaj da shvatis kako da upotrebis parametar, ona mora da dodbije neki tekst da bi ga upisala!!!
         {
             TextWriter txt = new StreamWriter("C:\\Users\\brank\\Desktop\\PROJECTS\\APLIKACIJE\\CALCULATORS\\Calculator WF\\Custom Calculator");
             txt.Write("");
