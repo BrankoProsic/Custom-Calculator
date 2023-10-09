@@ -15,7 +15,7 @@ namespace Custom_Calculator
 
         //public object RtBoxDisplayHistory { get; private set; }
 
-        public void SaveHistory(string text)
+        public void SaveHistory(string text) // prouci sql injection i videces zasto ovo nije dobra praksa, POPORAVI!!
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
