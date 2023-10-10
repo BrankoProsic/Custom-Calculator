@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Custom_Calculator
 {
@@ -39,18 +40,42 @@ namespace Custom_Calculator
         //    //Proverio i radi
         //}
 
-        public void SaveHistory(string text) //STORED PROCEDURE
+        //public void SaveHistory(string text) //STORED PROCEDURE
+        //{
+        //    SqlConnection conn = new SqlConnection(connStr);
+        //    conn.Open();
+
+        //    string sqlTxt = "calculatorLogs";
+        //    SqlCommand cmdInsert = new SqlCommand(sqlTxt, conn);
+        //    cmdInsert.CommandType = System.Data.CommandType.StoredProcedure;
+        //    cmdInsert.Parameters.AddWithValue("@Logs", text);
+
+        //    cmdInsert.ExecuteNonQuery();
+        //    conn.Close();
+        //}
+        public void SaveHistory(string text) //PARAMETARISED QUERIE!
         {
             SqlConnection conn = new SqlConnection(connStr);
-            conn.Open();
+            try
+            {
+                conn.Open();
+                DateTime time = DateTime.Now;
+                string sqlTxt = "INSERT INTO DateHistory(Date, Logs) VALUES (@Date, @Logs)";
+                SqlCommand cmdInsert = new SqlCommand(sqlTxt, conn);
+                cmdInsert.Parameters.AddWithValue("@Date", time);
+                cmdInsert.Parameters.AddWithValue("@Logs", text);
 
-            string sqlTxt = "calculatorLogs";
-            SqlCommand cmdInsert = new SqlCommand(sqlTxt, conn);
-            cmdInsert.CommandType = System.Data.CommandType.StoredProcedure;
-            cmdInsert.Parameters.AddWithValue("@Logs", text);
-
-            cmdInsert.ExecuteNonQuery();
-            conn.Close();
+                cmdInsert.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            //Proverio i radi
         }
     }
 }
