@@ -15,11 +15,12 @@ namespace Custom_Calculator
 {
     //Interface
     public partial class Form1 : Form
-    {   
-        private string connStr = ConfigurationManager.ConnectionStrings["CustomCalculatorString"].ConnectionString;
+    {
 
-        //public IRepository repo = new Repository(); // ovde si iskljucio repo iz upotrebe, koji je jedina referenca koja ti je potrebna 
+        public IRepository repoSQL = new SaveToSQLServerRepository(); // ovde si iskljucio repo iz upotrebe, koji je jedina referenca koja ti je potrebna 
         //obrati paznju da sad imas dva repozitorija, instanciraces onaj koji zelis da koristis, implenetiraj oba i onda menjaj ovde da vidis kako te tok vodi u razlicite implementacije 
+
+        public IRepository repoTxt = new SaveToTextFileRepository();
 
         //Fields
         Double result = 0;
@@ -91,34 +92,14 @@ namespace Custom_Calculator
         }
         public void BtnClearHistory_Click(object sender, EventArgs e)
         {
-            //repo.SaveHistory(/*RtBoxDisplayHistory.Text*/);
-            //SqlConnection conn = new SqlConnection(connStr);
-            //conn.Open();
-            //string sqlTxt = "SELECT ProductID, Title, Cost, SalePrice, Quantity FROM Inventory";
-            //SqlCommand cmd = new SqlCommand(sqlTxt, conn);
-
-            //RtBoxDisplayHistory.SaveFile(path);
+            
             if (RtBoxDisplayHistory.Text != string.Empty)
             {
-                // ovaj kod ne pripada ovde
-                string filePath = 
-                    @"C:\Users\brank\Desktop\PROJECTS\APLIKACIJE\CALCULATORS\Calculator WF\Custom Calculator\history.txt";
-                File.AppendAllLines(filePath, RtBoxDisplayHistory.Lines);
-            }
-            if (RtBoxDisplayHistory.Text != string.Empty)
-            {
-                SqlConnection conn = new SqlConnection(connStr); 
-                conn.Open();
-
-                string sqlTxt = "INSERT INTO History(Logs) VALUES ('" + RtBoxDisplayHistory.Text + "')";
-                SqlCommand cmdInsert = new SqlCommand(sqlTxt, conn);
-
-                cmdInsert.ExecuteNonQuery();
-                conn.Close();
-                //repo.SaveHistory(); //treba da koristis repozitori, forma ne sme da zna nista o nacinu cuvanja podataka
+                repoSQL.SaveHistory(RtBoxDisplayHistory.Text); //treba da koristis repozitori, forma ne sme da zna nista o nacinu cuvanja podataka
+                repoTxt.SaveHistory(RtBoxDisplayHistory.Text);
             }
             // pa sve do ovde 
-
+            
             if (RtBoxDisplayHistory.Text == string.Empty)
                 RtBoxDisplayHistory.Text = "There is no history";
             RtBoxDisplayHistory.Clear();
