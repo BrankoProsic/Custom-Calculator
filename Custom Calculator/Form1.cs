@@ -1,5 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using Microsoft.Data.SqlClient;
+using System.IO;
 
 namespace Custom_Calculator
 {
@@ -7,7 +17,9 @@ namespace Custom_Calculator
     public partial class Form1 : Form
     {
 
-        public IRepository repoSQL = new SaveToSQLServerRepository(); 
+        public IRepository repoSQL = new SaveToSQLServerRepository(); // ovde si iskljucio repo iz upotrebe, koji je jedina referenca koja ti je potrebna 
+        //obrati paznju da sad imas dva repozitorija, instanciraces onaj koji zelis da koristis, implenetiraj oba i onda menjaj ovde da vidis kako te tok vodi u razlicite implementacije 
+
         public IRepository repoTxt = new SaveToTextFileRepository();
 
         //Fields
@@ -44,7 +56,7 @@ namespace Custom_Calculator
         {
             secNum = TxtDisplay1.Text;
             TxtDisplay2.Text = $"{TxtDisplay2.Text}{TxtDisplay1.Text}";
-            
+            // uklonio sam znak = pred kraj navoda : TxtDisplay2.Text = $"{TxtDisplay2.Text}{TxtDisplay1.Text}=";
             if (TxtDisplay1.Text != string.Empty)
             {
                 if (TxtDisplay1.Text == "0") TxtDisplay2.Text = string.Empty;
@@ -83,10 +95,10 @@ namespace Custom_Calculator
             
             if (RtBoxDisplayHistory.Text != string.Empty)
             {
-                repoSQL.SaveHistory(RtBoxDisplayHistory.Text);
+                repoSQL.SaveHistory(RtBoxDisplayHistory.Text); //treba da koristis repozitori, forma ne sme da zna nista o nacinu cuvanja podataka
                 repoTxt.SaveHistory(RtBoxDisplayHistory.Text);
             }
-  
+            // pa sve do ovde 
             
             if (RtBoxDisplayHistory.Text == string.Empty)
                 RtBoxDisplayHistory.Text = "There is no history";

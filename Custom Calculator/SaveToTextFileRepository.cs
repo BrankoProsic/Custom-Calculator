@@ -6,12 +6,24 @@ namespace Custom_Calculator
     public class SaveToTextFileRepository : IRepository
     {
         
-        public void SaveHistory(string text) 
+
+        public void SaveHistory(string text) // zavrsi ovaj deo ako nemas nesto drugo zanimljivo trenutno
         {
             string filePath =
                 @"C:\Users\brank\Desktop\PROJECTS\APLIKACIJE\CALCULATORS\Calculator WF\Custom Calculator\history.txt";
-            File.AppendAllText(filePath, text);
 
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath);
+                TextWriter calculatorHistory = new StreamWriter(filePath);
+                File.WriteAllText(filePath, text);
+                calculatorHistory.Close();
+                
+            }
+            else if (File.Exists(filePath))
+            {
+                File.AppendAllText(filePath, text);
+            }
         }
 
         //private void CheckFile()
