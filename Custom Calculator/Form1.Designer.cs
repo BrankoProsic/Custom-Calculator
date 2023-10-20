@@ -65,6 +65,7 @@
             this.BtnDecimal = new System.Windows.Forms.Button();
             this.Btn0 = new System.Windows.Forms.Button();
             this.BtnPM = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.PnlTitle.SuspendLayout();
             this.PnlHistory.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -619,6 +620,10 @@
             this.BtnPM.UseVisualStyleBackColor = false;
             this.BtnPM.Click += new System.EventHandler(this.BtnOperations_Click);
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "Rich Text Forma|*.rtf";
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -706,6 +711,7 @@
         private System.Windows.Forms.Button BtnDecimal;
         private System.Windows.Forms.Button Btn0;
         private System.Windows.Forms.Button BtnPM;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
