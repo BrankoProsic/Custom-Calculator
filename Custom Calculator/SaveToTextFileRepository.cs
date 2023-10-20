@@ -6,7 +6,6 @@ namespace Custom_Calculator
     public class SaveToTextFileRepository : IRepository
     {
         
-
         public void SaveHistory(string text) // zavrsi ovaj deo ako nemas nesto drugo zanimljivo trenutno
         {
             string filePath =
