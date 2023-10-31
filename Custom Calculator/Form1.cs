@@ -95,7 +95,7 @@ namespace Custom_Calculator
             
             if (RtBoxDisplayHistory.Text != string.Empty)
             {
-                repoSQL.SaveHistory(RtBoxDisplayHistory.Text); //treba da koristis repozitori, forma ne sme da zna nista o nacinu cuvanja podataka
+               // repoSQL.SaveHistory(RtBoxDisplayHistory.Text); //treba da koristis repozitori, forma ne sme da zna nista o nacinu cuvanja podataka
                 repoTxt.SaveHistory(RtBoxDisplayHistory.Text);
             }
             // pa sve do ovde 
